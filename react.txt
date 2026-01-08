@@ -1,0 +1,5 @@
+O que é um componente React?
+    É uma funcao que utiliza o nome em PascalCase.
+        ex: FuncaoReact, PrimeiroNome, SegundoNome
+
+
