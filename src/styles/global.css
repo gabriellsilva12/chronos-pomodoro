@@ -9,6 +9,7 @@ html {
 }
 
 body {
+    text-align: center;
     font-size: 1.6rem;
     background: var(--gray-900);
     color: var(--text-default);

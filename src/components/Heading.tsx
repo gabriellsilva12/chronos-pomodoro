@@ -1,5 +1,15 @@
 import styles from './Heading.module.css';
 
-export function Heading(props) {
-  return <h1 className={styles.cyan}>{props.children} {props.attr ? props.attr: null}</h1>;
+type HeadingProps = {
+  children: React.ReactNode,
+};
+
+export function Heading({children}: HeadingProps) {
+  return (
+    <div>
+      <h1 className={styles.heading}>
+        {children}
+      </h1>
+    </div>
+  );
 }
