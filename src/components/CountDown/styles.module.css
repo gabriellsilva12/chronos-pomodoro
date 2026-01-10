@@ -1,0 +1,10 @@
+.countdown {
+  font-size: clamp(8rem, 30vw, 16rem);
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  line-height: 1.3;
+}
+
+.countdown:hover {
+  filter: brightness(80%);
+}
