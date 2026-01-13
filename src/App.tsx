@@ -1,3 +1,4 @@
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 
 import { Container } from './components/Container';
 import { Logo } from './components/Logo'
@@ -5,6 +6,7 @@ import { Menu } from './components/Menu'
 import { CountDown } from './components/CountDown'
 import { DefaultInput } from './components/DefaultInput'
 import { Cycles } from './components/Cycles';
+import { DefaultButton } from './components/DefaultButton';
 
 import './styles/theme.css';
 import './styles/global.css';
@@ -30,7 +32,7 @@ export function App() {
             <DefaultInput 
             id={'meuInput'} 
             type={'text'} 
-            labelText={'mytasks'} 
+            labelText={'tasks'} 
             title='title' 
           />
           </div>
@@ -44,7 +46,7 @@ export function App() {
           </div>
 
           <div className="row">
-            <button>Enviar</button>
+            < DefaultButton icon={ <PlayCircleIcon/>} color='green'/>
           </div>
         </form>
       </Container>
