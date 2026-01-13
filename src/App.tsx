@@ -1,3 +1,6 @@
+import './styles/theme.css';
+import './styles/global.css';
+
 import { PlayCircleIcon } from 'lucide-react';
 
 import { Container } from './components/Container';
@@ -9,10 +12,8 @@ import { Cycles } from './components/Cycles';
 import { DefaultButton } from './components/DefaultButton';
 import { Footer } from './components/Footer';
 
-import './styles/theme.css';
-import './styles/global.css';
-
 export function App() {
+
   return (
     <>
       <Container>
@@ -33,7 +34,7 @@ export function App() {
             <DefaultInput
               id={'meuInput'}
               type={'text'}
-              labelText={'tasks'}
+              labelText={'task'}
               title='title'
             />
           </div>
