@@ -2,29 +2,12 @@ import { DefaultInput } from '../DefaultInput'
 import { Cycles } from '../Cycles'
 import { DefaultButton } from '../DefaultButton'
 import { PlayCircleIcon } from 'lucide-react'
-import type { HomeProps } from '../../pages/Home'
 
+export function MainForm() {
 
-
-export function MainForm({ state, setState }: HomeProps) {
-  const handleClick = () => {
-    setState(prevState => {
-      return {
-        ...prevState,
-        formattedSecondsRemaining: "22:22",
-        config: {
-          ...prevState.config,
-          workTime: 32,
-        },
-      }
-    })
-  }
   return (
     <div>
         <form className='form' action=''>
-          <div>
-            <button type='button' onClick={handleClick}>click</button>
-          </div>
           <div className='row'>
             <DefaultInput
               id={'meuInput'}
@@ -37,7 +20,7 @@ export function MainForm({ state, setState }: HomeProps) {
           <div className='row'>
             <p>
               Nesse ciclo <strong>descanse</strong> por
-              <strong> {state.config.workTime} minutos</strong>
+              <strong> 5 minutos</strong>
             </p>
           </div>
 
