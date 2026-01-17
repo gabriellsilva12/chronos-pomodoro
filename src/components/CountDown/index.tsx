@@ -1,11 +1,19 @@
-import { useContext } from 'react';
 import styles from './styles.module.css';
-import { TaskContexts } from '../../contexts/TasksContext';
- 
+import { useTaskContext } from '../../contexts/TasksContext';
+
 export function CountDown() {
-    const context = useContext(TaskContexts)
-    console.log(context)
+  const { state, setState } = useTaskContext();
+
+  const handleClick = () => {
+    setState(prevState => {
+      return {
+        ...prevState,
+        formattedSecondsRemaining: '11:11'
+      }
+    })
+  }
+  console.log(state);
   return (
-    <div className={styles.countdown}>00:00</div>
+    <div onClick={handleClick} className={styles.countdown}>{state.formattedSecondsRemaining}</div>
   );
 }
