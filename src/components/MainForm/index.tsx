@@ -2,33 +2,27 @@ import { DefaultInput } from '../DefaultInput';
 import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton';
 import { PlayCircleIcon } from 'lucide-react';
-import { useTaskContext } from '../../contexts/TasksContext';
+import { useRef, useState } from 'react';
 
 export function MainForm() {
-  const { setState } = useTaskContext();
 
-  const handleClick = () => {
-    setState(prevState => {
-      return {
-        ...prevState,
-        formattedSecondsRemaining: '11:11',
-      };
-    });
-  };
+  const numero = useRef< HTMLInputElement >(null) 
+
+  function handleCreateNewTask(event:  React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    console.log(numero.current.value)
+  }
 
   return (
     <div>
-      <form className='form' action=''>
-        <button onClick={handleClick} type='button'>
-          click
-        </button>
-
+      <form onSubmit={handleCreateNewTask} className='form' action='' >
         <div className='row'>
           <DefaultInput
             id={'meuInput'}
             type={'text'}
             labelText={'task'}
             title='title'
+            ref={numero}
           />
         </div>
 
