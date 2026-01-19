@@ -4,7 +4,7 @@ import { DefaultButton } from '../DefaultButton';
 import { PlayCircleIcon } from 'lucide-react';
 import { useRef} from 'react';
 import type { TaskModel } from '../../models/taskModel';
-import { useTaskContext } from '../../contexts/TasksContext';
+import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 
 export function MainForm() {
   const { setState } = useTaskContext()
