@@ -1,7 +1,7 @@
 import { DefaultInput } from '../DefaultInput';
 import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton';
-import { PlayCircleIcon } from 'lucide-react';
+import { CircleStopIcon, PlayCircleIcon } from 'lucide-react';
 import { useRef } from 'react';
 import type { TaskModel } from '../../models/taskModel';
 import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
@@ -18,6 +18,7 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    console.log(event);
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
@@ -58,6 +59,7 @@ export function MainForm() {
             labelText={'task'}
             title='title'
             ref={taskNameInput}
+            disabled={!!state.activeTask}
           />
         </div>
 
@@ -75,7 +77,23 @@ export function MainForm() {
         )}
 
         <div className='row'>
-          <DefaultButton icon={<PlayCircleIcon />} color='green' />
+          {!state.activeTask ? (
+            <DefaultButton
+              type='submit'
+              aria-label='Iniciar nova tarefa'
+              title='Iniciar nova tarefa'
+              icon={<PlayCircleIcon/>}
+              color={'green'}
+              />
+            ) : (
+              <DefaultButton
+              type='button'
+              aria-label='Interromper tarefa atual'
+              title='Interromper tarefa atual'
+              icon={<CircleStopIcon />}
+              color={'red'}
+            />
+          )}
         </div>
       </form>
     </div>
