@@ -2,7 +2,7 @@ import { DefaultInput } from '../DefaultInput';
 import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton';
 import { PlayCircleIcon } from 'lucide-react';
-import { useRef} from 'react';
+import { useRef } from 'react';
 import type { TaskModel } from '../../models/taskModel';
 import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
@@ -10,20 +10,18 @@ import { getNextCycleType } from '../../utils/getNextCycleType';
 import { formatSecondsTwoMinutes } from '../../utils/formatSecondsTwoMinutes';
 
 export function MainForm() {
-  const { state, setState } = useTaskContext()
-  const taskNameInput = useRef< HTMLInputElement >(null) 
+  const { state, setState } = useTaskContext();
+  const taskNameInput = useRef<HTMLInputElement>(null);
 
+  const nextCycle = getNextCycle(state.currentCycle);
+  const nextCycleType = getNextCycleType(nextCycle);
 
-  const nextCycle = getNextCycle(state.currentCycle)
-  const nextCycleType = getNextCycleType(nextCycle)
-
-  function handleCreateNewTask(event:  React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if(taskNameInput.current === null) return
+  function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
-    if(!taskName) return alert('campo em branco, digite algo!!')
-
+    if (!taskName) return alert('campo em branco, digite algo!!');
 
     const newTask: TaskModel = {
       id: Date.now().toString(),
@@ -33,27 +31,26 @@ export function MainForm() {
       interruptDate: null,
       duration: state.config[nextCycleType],
       type: nextCycleType,
-    }
+    };
 
     const secondsRemaining = newTask.duration * 60;
- 
+
     setState(prevState => {
       return {
         ...prevState,
-        config: {...prevState.config},
+        config: { ...prevState.config },
         activeTask: newTask,
         currentCycle: nextCycle,
         secondsRemaining,
         formattedSecondsRemaining: formatSecondsTwoMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask]
-      }
-    })
-
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
   }
 
   return (
     <div>
-      <form onSubmit={handleCreateNewTask} className='form' action='' >
+      <form onSubmit={handleCreateNewTask} className='form' action=''>
         <div className='row'>
           <DefaultInput
             id={'meuInput'}
@@ -71,9 +68,11 @@ export function MainForm() {
           </p>
         </div>
 
-        <div className='row'>
-          <Cycles />
-        </div>
+        {state.currentCycle > 0 && (
+          <div className='row'>
+            <Cycles />
+          </div>
+        )}
 
         <div className='row'>
           <DefaultButton icon={<PlayCircleIcon />} color='green' />
