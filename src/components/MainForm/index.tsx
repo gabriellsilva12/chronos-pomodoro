@@ -18,7 +18,6 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(event);
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
@@ -45,6 +44,17 @@ export function MainForm() {
         secondsRemaining,
         formattedSecondsRemaining: formatSecondsTwoMinutes(secondsRemaining),
         tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+
+  function handleInterruptTask() {
+    setState(prevState => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: '00:00',
       };
     });
   }
@@ -77,21 +87,26 @@ export function MainForm() {
         )}
 
         <div className='row'>
-          {!state.activeTask ? (
+          {!state.activeTask && (
             <DefaultButton
               type='submit'
               aria-label='Iniciar nova tarefa'
               title='Iniciar nova tarefa'
-              icon={<PlayCircleIcon/>}
+              icon={<PlayCircleIcon />}
               color={'green'}
-              />
-            ) : (
-              <DefaultButton
+              key={'botao_submit'}
+            />
+          )}
+
+          {!!state.activeTask && (
+            <DefaultButton
               type='button'
               aria-label='Interromper tarefa atual'
               title='Interromper tarefa atual'
               icon={<CircleStopIcon />}
               color={'red'}
+              key={'botao_button'}
+              onClick={handleInterruptTask}
             />
           )}
         </div>
