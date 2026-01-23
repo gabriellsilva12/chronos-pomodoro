@@ -3,22 +3,11 @@ import { formatSecondsTwoMinutes } from '../../utils/formatSecondsTwoMinutes';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { TaskActionsTypes, type TaskActionsModel } from './taskActions';
 
-// setState(prevState => {
-//   return {
-//     ...prevState,
-//     config: { ...prevState.config },
-//     activeTask: newTask,
-//     currentCycle: nextCycle,
-//     secondsRemaining,
-//     formattedSecondsRemaining: formatSecondsTwoMinutes(secondsRemaining),
-//     tasks: [...prevState.tasks, newTask],
-//   };
-// });
-
 export function taskReducer(
   state: TaskStateModel,
   action: TaskActionsModel,
 ): TaskStateModel {
+  
   switch (action.type) {
     case TaskActionsTypes.START_TASK: {
       const newTasks = action.payload;

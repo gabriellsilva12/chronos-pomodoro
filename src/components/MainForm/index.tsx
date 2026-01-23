@@ -8,11 +8,13 @@ import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
+import Tips from '../Tips';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
+  // cycles
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
@@ -33,12 +35,11 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    dispatch({type: TaskActionsTypes.START_TASK, payload: newTask})
-
+    dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
   }
 
   function handleInterruptTask() {
-    dispatch({type: TaskActionsTypes.INTERRUPT_TASK})
+    dispatch({ type: TaskActionsTypes.INTERRUPT_TASK });
   }
 
   return (
@@ -57,8 +58,7 @@ export function MainForm() {
 
         <div className='row'>
           <p>
-            Nesse ciclo <strong>descanse</strong> por
-            <strong> 5 minutos</strong>
+            < Tips/>
           </p>
         </div>
 
