@@ -36,11 +36,12 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
+
   }
 
   function handleInterruptTask() {
     dispatch({ type: TaskActionsTypes.INTERRUPT_TASK });
-  }
+  }     
 
   return (
     <div>
@@ -58,7 +59,7 @@ export function MainForm() {
 
         <div className='row'>
           <p>
-            < Tips/>
+            <Tips />
           </p>
         </div>
 
