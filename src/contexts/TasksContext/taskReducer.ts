@@ -1,5 +1,5 @@
 import type { TaskStateModel } from '../../models/taskStateModel';
-import { formatSecondsTwoMinutes } from '../../utils/formatSecondsTwoMinutes';
+import { formatSecondsToMinutes } from '../../utils/formatSecondsTwoMinutes';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { TaskActionsTypes, type TaskActionsModel } from './taskActions';
 
@@ -7,7 +7,6 @@ export function taskReducer(
   state: TaskStateModel,
   action: TaskActionsModel,
 ): TaskStateModel {
-  
   switch (action.type) {
     case TaskActionsTypes.START_TASK: {
       const newTasks = action.payload;
@@ -19,7 +18,7 @@ export function taskReducer(
         activeTask: newTasks,
         currentCycle: nextCycle,
         secondsRemaining: secondsRemaining,
-        formattedSecondsRemaining: formatSecondsTwoMinutes(secondsRemaining),
+        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
         tasks: [...state.tasks, newTasks],
       };
     }
@@ -40,6 +39,30 @@ export function taskReducer(
     }
     case TaskActionsTypes.RESET_TASK: {
       return state;
+    }
+    case TaskActionsTypes.COUNT_DOWN: {
+      return {
+        ...state,
+        secondsRemaining: action.payload.secondsRemaining,
+        formattedSecondsRemaining: formatSecondsToMinutes(
+          action.payload.secondsRemaining,
+        ),
+      };
+    }
+
+    case TaskActionsTypes.COMPLETE_TASK: {
+      return {
+        ...state,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: '00:00',
+        tasks: state.tasks.map(task => {
+          if (state.activeTask && state.activeTask.id === task.id) {
+            return { ...task, completeDate: Date.now() };
+          }
+          return task;
+        }),
+      };
     }
   }
 
