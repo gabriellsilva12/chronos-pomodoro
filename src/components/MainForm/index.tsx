@@ -8,6 +8,7 @@ import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
+import { showMessage } from '../../adapters/showMessage';
 import Tips from '../Tips';
 
 export function MainForm() {
@@ -20,10 +21,15 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    showMessage.dismiss()
+
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
-    if (!taskName) return alert('campo em branco, digite algo!!');
+    if (!taskName) {
+      showMessage.warning('Digite o nome da tarefa');
+      return;
+    }
 
     const newTask: TaskModel = {
       id: Date.now().toString(),
@@ -36,12 +42,15 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
-
+    showMessage.success('Tarefa iniciada com sucesso!');
+    
   }
-
+  
   function handleInterruptTask() {
+    showMessage.dismiss()
+    showMessage.error('Ops, tarefa cancelada!');
     dispatch({ type: TaskActionsTypes.INTERRUPT_TASK });
-  }     
+  }
 
   return (
     <div>
