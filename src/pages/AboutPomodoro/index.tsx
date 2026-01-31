@@ -95,7 +95,7 @@ export function AboutPomodoro() {
           <h3>📊 Histórico automático</h3>
           <p>
             Todas as suas tarefas e ciclos concluídos ficam salvos no{' '}
-            <RouterLink href='/history/'>histórico</RouterLink>, com status de completas ou
+            <RouterLink href='/historycontesx/'>histórico</RouterLink>, com status de completas ou
             interrompidas. Assim, você consegue acompanhar sua evolução ao longo
             do tempo.
           </p>

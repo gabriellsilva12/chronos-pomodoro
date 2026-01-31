@@ -14,6 +14,7 @@ import Tips from '../Tips';
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || '';
 
   // cycles
   const nextCycle = getNextCycle(state.currentCycle);
@@ -21,7 +22,7 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    showMessage.dismiss()
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 
@@ -43,11 +44,10 @@ export function MainForm() {
 
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
     showMessage.success('Tarefa iniciada com sucesso!');
-    
   }
-  
+
   function handleInterruptTask() {
-    showMessage.dismiss()
+    showMessage.dismiss();
     showMessage.error('Ops, tarefa cancelada!');
     dispatch({ type: TaskActionsTypes.INTERRUPT_TASK });
   }
@@ -63,6 +63,7 @@ export function MainForm() {
             title='title'
             ref={taskNameInput}
             disabled={!!state.activeTask}
+            defaultValue={lastTaskName}
           />
         </div>
 
