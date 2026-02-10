@@ -10,12 +10,12 @@ import formateDate from '../../utils/formateDate';
 import getTaskStatus from '../../utils/getTaskStatus';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
 import { useMemo, useState } from 'react';
+import { showMessage } from '../../adapters/showMessage';
 import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
 
 export function History() {
   const { state, dispatch } = useTaskContext();
   const hasTasks = state.tasks.length > 0;
-
   const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(
     () => {
       return {
@@ -48,9 +48,11 @@ export function History() {
   }
 
   function handleResetHistory() {
-    if (!confirm('Tem certeza que deseja excluir seu Historico?')) return;
+  showMessage.confirm('Tem certeza?', confirmation => {
+    if (!confirmation) return;
 
     dispatch({ type: TaskActionsTypes.RESET_TASK });
+  });
   }
 
   return (
