@@ -9,7 +9,7 @@ import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 import formateDate from '../../utils/formateDate';
 import getTaskStatus from '../../utils/getTaskStatus';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { showMessage } from '../../adapters/showMessage';
 import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
 
@@ -34,6 +34,13 @@ export function History() {
     });
   }, [state.tasks, sortTasksOptions.direction, sortTasksOptions.field]);
 
+  useEffect(() => {
+    return () => {
+      showMessage.dismiss()
+    } 
+  }, [])
+
+
   function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
     const newDirection = sortTasksOptions.direction === 'desc' ? 'asc' : 'desc';
     setSortTasksOptions({
@@ -48,11 +55,11 @@ export function History() {
   }
 
   function handleResetHistory() {
-  showMessage.confirm('Tem certeza?', confirmation => {
-    if (!confirmation) return;
+    showMessage.confirm('Tem certeza?', confirmation => {
+      if (!confirmation) return;
 
-    dispatch({ type: TaskActionsTypes.RESET_TASK });
-  });
+      dispatch({ type: TaskActionsTypes.RESET_TASK });
+    });
   }
 
   return (
