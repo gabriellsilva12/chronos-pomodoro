@@ -32,6 +32,13 @@ export function MainForm() {
       return;
     }
 
+    console.log(state.tasks)
+
+    if(state.tasks.length === 2000) {
+      showMessage.warning("Cuidado! Você ultrapassou 2000 mensagens, seu historico pode ocasionar travamentos no navegador")
+      return
+    }
+    
     const newTask: TaskModel = {
       id: Date.now().toString(),
       name: taskName,
@@ -41,6 +48,7 @@ export function MainForm() {
       duration: state.config[nextCycleType],
       type: nextCycleType,
     };
+
 
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
     showMessage.success('Tarefa iniciada com sucesso!');

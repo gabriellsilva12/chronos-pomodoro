@@ -17,8 +17,8 @@ export function Settings() {
   const longBreakTimeInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log('estado mudou');
-  }, [state]);
+    document.title = "Configurações - Chronos Pomodoro"
+  },[]) 
 
   function handleSaveSettings(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
