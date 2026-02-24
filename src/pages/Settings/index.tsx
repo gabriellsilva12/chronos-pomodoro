@@ -7,6 +7,7 @@ import { SaveIcon } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 import { showMessage } from '../../adapters/showMessage';
+import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
 
 export function Settings() {
   const { state, dispatch } = useTaskContext();
@@ -49,6 +50,12 @@ export function Settings() {
         showMessage.error(error);
       });
     }
+
+    dispatch({
+      type: TaskActionsTypes.CHANGE_SETTINGS,
+      payload: { workTime, shortBreakTime, longBreakTime },
+    });
+    showMessage.success("Configurações salvas.")
   }
 
   return (

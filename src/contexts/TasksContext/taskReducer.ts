@@ -39,7 +39,7 @@ export function taskReducer(
       };
     }
     case TaskActionsTypes.RESET_TASK: {
-      return {...initialTaskState};
+      return { ...initialTaskState };
     }
     case TaskActionsTypes.COUNT_DOWN: {
       return {
@@ -63,6 +63,13 @@ export function taskReducer(
           }
           return task;
         }),
+      };
+    }
+
+    case TaskActionsTypes.CHANGE_SETTINGS: {
+      return {
+        ...state,
+        config: { ...action.payload },
       };
     }
   }
