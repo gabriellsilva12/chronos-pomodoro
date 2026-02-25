@@ -1,38 +1,41 @@
 import type { TaskModel } from '../../models/taskModel';
 import type { TaskStateModel } from '../../models/taskStateModel';
 
-export enum TaskActionsTypes {
-  START_TASK = 'START_TASK',
-  INTERRUPT_TASK = 'INTERRUPT_TASK',
-  RESET_TASK = 'RESET',
-  COUNT_DOWN = 'COUNT_DOWN',
-  COMPLETE_TASK = 'COMPLETE_TASK',
-  CHANGE_SETTINGS = 'CHANGE_SETTINGS',
-}
+export const TASK_ACTIONS_TYPES = {
+  START_TASK: 'START_TASK',
+  INTERRUPT_TASK: 'INTERRUPT_TASK',
+  RESET_TASK: 'RESET',
+  COUNT_DOWN: 'COUNT_DOWN',
+  COMPLETE_TASK: 'COMPLETE_TASK',
+  CHANGE_SETTINGS: 'CHANGE_SETTINGS',
+} as const;
+
+export type TaskActionsTypes =
+  (typeof TASK_ACTIONS_TYPES)[keyof typeof TASK_ACTIONS_TYPES];
 
 export type TaskActionsWithPayload =
   | {
-      type: TaskActionsTypes.START_TASK;
+      type: typeof TASK_ACTIONS_TYPES.START_TASK;
       payload: TaskModel;
     }
   | {
-      type: TaskActionsTypes.COUNT_DOWN;
+      type: typeof TASK_ACTIONS_TYPES.COUNT_DOWN;
       payload: { secondsRemaining: number };
     }
   | {
-      type: TaskActionsTypes.CHANGE_SETTINGS;
-      payload: TaskStateModel["config"]
-    } ;
+      type: typeof TASK_ACTIONS_TYPES.CHANGE_SETTINGS;
+      payload: TaskStateModel['config'];
+    };
 
 export type TaskActionsWithoutPayload =
   | {
-      type: TaskActionsTypes.RESET_TASK;
+      type: typeof TASK_ACTIONS_TYPES.RESET_TASK;
     }
   | {
-      type: TaskActionsTypes.INTERRUPT_TASK;
+      type: typeof TASK_ACTIONS_TYPES.INTERRUPT_TASK;
     }
   | {
-      type: TaskActionsTypes.COMPLETE_TASK;
+      type: typeof TASK_ACTIONS_TYPES.COMPLETE_TASK;
     };
 
 export type TaskActionsModel =

@@ -7,7 +7,7 @@ import type { TaskModel } from '../../models/taskModel';
 import { useTaskContext } from '../../contexts/TasksContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
+import { TASK_ACTIONS_TYPES } from '../../contexts/TasksContext/taskActions';
 import { showMessage } from '../../adapters/showMessage';
 import Tips from '../Tips';
 
@@ -32,13 +32,15 @@ export function MainForm() {
       return;
     }
 
-    console.log(state.tasks)
+    console.log(state.tasks);
 
-    if(state.tasks.length === 2000) {
-      showMessage.warning("Cuidado! Você ultrapassou 2000 mensagens, seu historico pode ocasionar travamentos no navegador")
-      return
+    if (state.tasks.length === 2000) {
+      showMessage.warning(
+        'Cuidado! Você ultrapassou 2000 mensagens, seu historico pode ocasionar travamentos no navegador',
+      );
+      return;
     }
-    
+
     const newTask: TaskModel = {
       id: Date.now().toString(),
       name: taskName,
@@ -49,15 +51,14 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-
-    dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
+    dispatch({ type: TASK_ACTIONS_TYPES.START_TASK, payload: newTask });
     showMessage.success('Tarefa iniciada com sucesso!');
   }
 
   function handleInterruptTask() {
     showMessage.dismiss();
     showMessage.error('Ops, tarefa cancelada!');
-    dispatch({ type: TaskActionsTypes.INTERRUPT_TASK });
+    dispatch({ type: TASK_ACTIONS_TYPES.INTERRUPT_TASK });
   }
 
   return (

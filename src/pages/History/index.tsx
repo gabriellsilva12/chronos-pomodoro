@@ -11,7 +11,7 @@ import getTaskStatus from '../../utils/getTaskStatus';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
 import { useEffect, useMemo, useState } from 'react';
 import { showMessage } from '../../adapters/showMessage';
-import { TaskActionsTypes } from '../../contexts/TasksContext/taskActions';
+import { TASK_ACTIONS_TYPES } from '../../contexts/TasksContext/taskActions';
 
 export function History() {
   const { state, dispatch } = useTaskContext();
@@ -27,8 +27,8 @@ export function History() {
   );
 
   useEffect(() => {
-    document.title = "Historico - Chronos Pomodoro"
-  },[])
+    document.title = 'Historico - Chronos Pomodoro';
+  }, []);
 
   const sortedTask = useMemo(() => {
     return sortTasks({
@@ -40,10 +40,9 @@ export function History() {
 
   useEffect(() => {
     return () => {
-      showMessage.dismiss()
-    } 
-  }, [])
-
+      showMessage.dismiss();
+    };
+  }, []);
 
   function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
     const newDirection = sortTasksOptions.direction === 'desc' ? 'asc' : 'desc';
@@ -62,7 +61,7 @@ export function History() {
     showMessage.confirm('Tem certeza?', confirmation => {
       if (!confirmation) return;
 
-      dispatch({ type: TaskActionsTypes.RESET_TASK });
+      dispatch({ type: TASK_ACTIONS_TYPES.RESET_TASK });
     });
   }
 

@@ -2,14 +2,14 @@ import type { TaskStateModel } from '../../models/taskStateModel';
 import { formatSecondsToMinutes } from '../../utils/formatSecondsTwoMinutes';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { initialTaskState } from './initialTaskState';
-import { TaskActionsTypes, type TaskActionsModel } from './taskActions';
+import { TASK_ACTIONS_TYPES, type TaskActionsModel } from './taskActions';
 
 export function taskReducer(
   state: TaskStateModel,
   action: TaskActionsModel,
 ): TaskStateModel {
   switch (action.type) {
-    case TaskActionsTypes.START_TASK: {
+    case TASK_ACTIONS_TYPES.START_TASK: {
       const newTasks = action.payload;
       const nextCycle = getNextCycle(state.currentCycle);
       const secondsRemaining = newTasks.duration * 60;
@@ -24,7 +24,7 @@ export function taskReducer(
       };
     }
 
-    case TaskActionsTypes.INTERRUPT_TASK: {
+    case TASK_ACTIONS_TYPES.INTERRUPT_TASK: {
       return {
         ...state,
         activeTask: null,
@@ -38,10 +38,10 @@ export function taskReducer(
         }),
       };
     }
-    case TaskActionsTypes.RESET_TASK: {
+    case TASK_ACTIONS_TYPES.RESET_TASK: {
       return { ...initialTaskState };
     }
-    case TaskActionsTypes.COUNT_DOWN: {
+    case TASK_ACTIONS_TYPES.COUNT_DOWN: {
       return {
         ...state,
         secondsRemaining: action.payload.secondsRemaining,
@@ -51,7 +51,7 @@ export function taskReducer(
       };
     }
 
-    case TaskActionsTypes.COMPLETE_TASK: {
+    case TASK_ACTIONS_TYPES.COMPLETE_TASK: {
       return {
         ...state,
         activeTask: null,
@@ -66,7 +66,7 @@ export function taskReducer(
       };
     }
 
-    case TaskActionsTypes.CHANGE_SETTINGS: {
+    case TASK_ACTIONS_TYPES.CHANGE_SETTINGS: {
       return {
         ...state,
         config: { ...action.payload },
